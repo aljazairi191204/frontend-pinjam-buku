@@ -11,14 +11,11 @@ export default defineConfig({
   },
   server: {
     port: 5173,
-    host: '0.0.0.0', // Memungkinkan akses dari jaringan lokal
-    // TAMBAHKAN BLOK INI untuk mengizinkan semua host ngrok
+    host: '0.0.0.0',
     allowedHosts: [
       'localhost',
-      '.ngrok.io',
-      '.ngrok-free.app',
-      '.ngrok-free.dev',
-      'unlicentious-esther-focally.ngrok-free.dev' // Host spesifik Anda
+      '.up.railway.app',  // Ini mengizinkan semua subdomain railway.app
+      'frontend-pinjam-buku-production.up.railway.app' // Spesifik untuk domain Anda
     ],
     proxy: {
       '/api': {
@@ -26,5 +23,14 @@ export default defineConfig({
         changeOrigin: true,
       },
     }
+  },
+  preview: { // <-- TAMBAHKAN BAGIAN INI! (penting untuk production)
+    port: process.env.PORT || 4173,
+    host: '0.0.0.0',
+    allowedHosts: [
+      'localhost',
+      '.up.railway.app',
+      'frontend-pinjam-buku-production.up.railway.app'
+    ]
   }
 })
